@@ -12,9 +12,9 @@ public class ParaUI extends UI {
 	public ParaUI() {
 		acciones = new Accion();
 		
-		btnBoton.addActionListener(new ActionListener() {
+		botonJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				crearJuego();
 			}
 		});
 	}
