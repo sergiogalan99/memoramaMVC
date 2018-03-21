@@ -60,6 +60,7 @@ public class UI extends JFrame {
 		crearPanelPrincipal();
 		
 	}
+
 	private void crearPanelPrincipal(){
 		
 		panelPrincipal = new JPanel();
@@ -101,6 +102,7 @@ public class UI extends JFrame {
 		
 		
 	}
+
 	public void crearPanelJuego(String dimension){
 		panelJuego = new JPanel();
 		panelJuego.setBounds(10, 11, 344, 220);
@@ -150,12 +152,14 @@ public class UI extends JFrame {
 		textoMensaje.setMaximumSize(new Dimension(250, 14));
 		
 	}
-	public String crearJuego() {
+
+	public int crearJuego() {
 		this.dimension = (String) comboBox.getSelectedItem();
 		remove(panelPrincipal);
 		crearPanelJuego(this.dimension);
-		return this.dimension;
+		return Integer.parseInt(this.dimension);
 	}
+
 	public void setListeners(ActionCasilla listenerCasilla) {
 		int dimension=Integer.parseInt(this.dimension);
 		for (int i = 0; i < dimension; i++) {

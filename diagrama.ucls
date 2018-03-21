@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="modelo.Tablero" project="MemoramaMVC" file="/MemoramaMVC/src/modelo/Tablero.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="294" y="270"/>    
+    <position height="-1" width="-1" x="418" y="199"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="modelo.Coordenada" project="MemoramaMVC" 
     file="/MemoramaMVC/src/modelo/Coordenada.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="294" y="465"/>    
+    <position height="-1" width="-1" x="418" y="394"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="modelo.Casilla" project="MemoramaMVC" file="/MemoramaMVC/src/modelo/Casilla.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="293" y="661"/>    
+    <position height="-1" width="-1" x="417" y="590"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="control.Principal" project="MemoramaMVC" 
     file="/MemoramaMVC/src/control/Principal.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1488" y="84"/>    
+    <position height="-1" width="-1" x="1078" y="161"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -82,26 +82,30 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="10">    
+  <generalization id="10">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <realization id="11">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <association id="12">    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="11" name="acciones"/>      
-      <multiplicity id="12" minimum="0" maximum="1"/>    
+      <attribute id="13" name="acciones">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="14" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="13">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="8"/>  
-  </realization>  
-  <realization id="14">    
+  <realization id="15">    
     <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="7"/>  
   </realization>  
-  <generalization id="15">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

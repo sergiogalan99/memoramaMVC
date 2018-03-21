@@ -28,14 +28,14 @@ public class Tablero {
 	
 	private boolean comprobarValor(Casilla casilla){
 		boolean comprobacion=true;
-		if (casilla.getValor())==0) {
+		if (casilla.getValor()==0) {
 			comprobacion=false;
 		}
 		return comprobacion;
 	}
 	
 	private void desvelar(Casilla casilla) {
-		casilla.setVelada()=true;
+		casilla.setVelada(true);
 	}
 	
 }

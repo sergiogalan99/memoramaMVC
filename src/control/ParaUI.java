@@ -3,22 +3,39 @@ package control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import modelo.Tablero;
 import vista.UI;
 
 public class ParaUI extends UI {
 	
-	private Accion acciones;
+	private int dimension;
+	private Tablero control = new Tablero(dimension);
+	private Accion acciones = new Accion();
 	private ActionCasilla listenerCasilla= new ActionCasilla(this);
 	
 	public ParaUI() {
-		acciones = new Accion();
-		
 		botonJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				crearJuego();
+				dimension = crearJuego();
 				setListeners(listenerCasilla);
 			}
 		});
+	}
+
+	public int getDimension() {
+		return dimension;
+	}
+
+	public Tablero getControl() {
+		return control;
+	}
+
+	public Accion getAcciones() {
+		return acciones;
+	}
+
+	public ActionCasilla getListenerCasilla() {
+		return listenerCasilla;
 	}
 
 }
