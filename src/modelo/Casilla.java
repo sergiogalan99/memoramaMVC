@@ -4,11 +4,11 @@ public class Casilla {
 	private boolean velada;
 	private int valor;
 
-	public boolean isEstado() {
+	public boolean isVelada() {
 		return velada;
 	}
 
-	public void setEstado(boolean velada) {
+	public void setVelada(boolean velada) {
 		this.velada = velada;
 	}
 
