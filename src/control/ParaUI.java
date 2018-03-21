@@ -15,6 +15,9 @@ public class ParaUI extends UI {
 		botonJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				crearJuego();
+				
+				
+				
 			}
 		});
 	}

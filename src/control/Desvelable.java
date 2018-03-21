@@ -1,5 +1,7 @@
 package control;
 
+import modelo.Coordenada;
+
 public interface Desvelable {
 	
 	/**
@@ -7,5 +9,5 @@ public interface Desvelable {
 	 * 
 	 * @param valor
 	 */
-	public void desvelar(int valor);
+	public boolean desvelar(Coordenada coordenada);
 }
