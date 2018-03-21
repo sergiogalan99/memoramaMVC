@@ -21,4 +21,8 @@ public class Botonera extends JPanel {
 			}
 		}
 	}
+
+	public JButton[][] getBotonera() {
+		return botonera;
+	}
 }

@@ -8,6 +8,7 @@ import vista.UI;
 public class ParaUI extends UI {
 	
 	private Accion acciones;
+	private ActionCasilla listenerCasilla= new ActionCasilla(this);
 	
 	public ParaUI() {
 		acciones = new Accion();
@@ -15,9 +16,7 @@ public class ParaUI extends UI {
 		botonJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				crearJuego();
-				
-				
-				
+				setListeners(listenerCasilla);
 			}
 		});
 	}

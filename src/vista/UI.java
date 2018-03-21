@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import control.ActionCasilla;
+
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import javax.swing.JComboBox;
@@ -152,6 +155,16 @@ public class UI extends JFrame {
 		remove(panelPrincipal);
 		crearPanelJuego(this.dimension);
 		return this.dimension;
+	}
+	public void setListeners(ActionCasilla listenerCasilla) {
+		int dimension=Integer.parseInt(this.dimension);
+		for (int i = 0; i < dimension; i++) {
+			for (int j = 0; j < dimension; j++) {
+				this.botonera.getBotonera()[i][j].addActionListener(listenerCasilla);
+				
+			}
+			
+		}
 	}
 	
 }
