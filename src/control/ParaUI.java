@@ -9,8 +9,8 @@ import vista.UI;
 public class ParaUI extends UI {
 	
 	private int dimension;
-	private Tablero control = new Tablero(dimension);
-	private Accion acciones = new Accion();
+	private Tablero control;
+	private Accion acciones = new Accion(this);
 	private ActionCasilla listenerCasilla= new ActionCasilla(this);
 	
 	public ParaUI() {
@@ -18,6 +18,8 @@ public class ParaUI extends UI {
 			public void actionPerformed(ActionEvent arg0) {
 				dimension = crearJuego();
 				setListeners(listenerCasilla);
+				control = new Tablero(dimension);
+				acciones.setControl(control);
 			}
 		});
 	}
@@ -37,5 +39,7 @@ public class ParaUI extends UI {
 	public ActionCasilla getListenerCasilla() {
 		return listenerCasilla;
 	}
+	
+	
 
 }

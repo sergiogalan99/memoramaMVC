@@ -58,7 +58,6 @@ public class UI extends JFrame {
 		contentPane.add(tituloJuego, BorderLayout.NORTH);
 		
 		crearPanelPrincipal();
-		
 	}
 
 	private void crearPanelPrincipal(){
@@ -112,7 +111,11 @@ public class UI extends JFrame {
 		
 		botonera=new Botonera(Integer.parseInt(dimension));
 		panelJuego.add(botonera, BorderLayout.CENTER);
-		botonera.setLayout(new GridLayout(Integer.parseInt(dimension), Integer.parseInt(dimension)));
+		GridLayout gl_botonera = new GridLayout(Integer.parseInt(dimension), Integer.parseInt(dimension));
+		gl_botonera.setVgap(1);
+		gl_botonera.setHgap(1);
+		botonera.setBackground(Color.LIGHT_GRAY);
+		botonera.setLayout(gl_botonera);
 		
 		panel_3 = new JPanel();
 		panel_3.setBorder(new EmptyBorder(0, 10, 0, 10));
@@ -169,6 +172,10 @@ public class UI extends JFrame {
 			}
 			
 		}
+	}
+
+	public Botonera getBotonera() {
+		return botonera;
 	}
 	
 }

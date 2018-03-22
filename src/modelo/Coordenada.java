@@ -2,35 +2,48 @@ package modelo;
 
 public class Coordenada {
 
-	private int coordX;
-	private int coordY;
+	private int x;
+	private int y;
 	
 	public Coordenada() {}
+	
+	public Coordenada(String coordenada) {
+		convertirCoordenadas(coordenada);
+	}
 
-	public Coordenada(int coordX, int coordY) {
-		this.coordX = coordX;
-		this.coordY = coordY;
+	public Coordenada(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 	
-	public int getCoordX() {
-		return coordX;
+	public int getX() {
+		return x;
 	}
 	
-	public int getCoordY() {
-		return coordY;
+	public int getY() {
+		return y;
 	}
 	
-	public void setCoordX(int coordX) {
-		this.coordX = coordX;
+	public void setX(int x) {
+		this.x = x;
 	}
 	
-	public void setCoordY(int coordY) {
-		this.coordY = coordY;
+	public void setY(int y) {
+		this.y = y;
 	}
 	
 	public int[] extraerVector() {
-		int coordenadas[] = {this.coordX, this.coordY}; 
+		int coordenadas[] = {this.x, this.y}; 
 		return coordenadas;
+	}
+	
+	public void setCoordenadas(String coordenadas) {
+		convertirCoordenadas(coordenadas);
+	}
+	
+	private void convertirCoordenadas(String coordenadas) {
+		this.x = coordenadas.charAt(0);
+		this.x = coordenadas.charAt(1);
 	}
 
 }
