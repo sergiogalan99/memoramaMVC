@@ -23,15 +23,18 @@ public class Accion implements Comprobable {
 			if(comprobarParejas(this.control.getCartas())) {
 				if(comprobarVictoria(this.control.getCartas())) {
 					//TODO Hacer si ha habido victoria
+					System.out.println("Victoria");
 				}
 				
-				if(comprobarDerrota(this.control.getFallos().getFallos(), this.control.getFallos().getLimiteFallos())) {
-					//TODO Hacer si ha habido derrota
-				}
-				
+				System.out.println("Son parejas");
 				//TODO Hacer si son parejas pero no hay victoria ni derrota
+			} else if(comprobarDerrota(this.control.getFallos().getFallos(), this.control.getFallos().getLimiteFallos())) {
+					//TODO Hacer si ha habido derrota
+					System.out.println("Derrota");
 			} else {
 				//TODO Hacer si no son parejas
+				System.out.println("No son parejas");
+				this.control.getFallos().aumentarFallos();
 			}
 			desmarcarCartas(this.control.getCartas()); // Cada vez que se marquen dos cartas, pase lo que pase, hay que desmarcar todas para la siguiente jugada
 		}
@@ -51,6 +54,7 @@ public class Accion implements Comprobable {
 
 	@Override
 	public boolean comprobarDerrota(int fallos, int limiteFallos) {
+		assert fallos >= 0 && limiteFallos >= 0 : "Parametros negativos";
 		return fallos > limiteFallos;
 	}
 
@@ -88,7 +92,7 @@ public class Accion implements Comprobable {
 	}
 
 	public boolean marcarCarta(Coordenada coordenadas, Carta[][] cartas) {
-		Carta carta = this.control.getCartas()[coordenadas.getX()][coordenadas.getY()];
+		Carta carta = cartas[coordenadas.getX()][coordenadas.getY()];
 
 		if(carta.isVelada() && comprobarMarcable(cartas)) {
 			cartas[coordenadas.getX()][coordenadas.getY()].setMarcada(true);

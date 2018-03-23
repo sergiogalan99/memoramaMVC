@@ -42,8 +42,8 @@ public class Coordenada {
 	}
 	
 	private void convertirCoordenadas(String coordenadas) {
-		this.x = coordenadas.charAt(0);
-		this.x = coordenadas.charAt(1);
+		this.x = Integer.parseInt(coordenadas.substring(0, 1));
+		this.y = Integer.parseInt(coordenadas.substring(1, 2));
 	}
 
 }

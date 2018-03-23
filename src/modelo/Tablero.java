@@ -6,7 +6,7 @@ public class Tablero {
 	private int cantidadParejas;
 	private int cantidadCartas;
 	private Carta[][] cartas;
-	private Fallo fallos;
+	private Fallo fallos = new Fallo();
 
 	public Tablero(int dimension) {
 		this.dimension = dimension;
@@ -18,17 +18,6 @@ public class Tablero {
 
 	public void desvelar(Carta casilla) {
 		casilla.setVelada(false);
-	}
-	
-	private boolean comprobarGanador() {
-		for (int i = 0; i < this.dimension; i++) {
-			for (int j = 0; j < this.dimension; j++) {
-				if(this.cartas[i][j].isVelada()) {
-					return false;
-				}
-			}
-		}
-		return true;
 	}
 
 	private void inicializar() {
