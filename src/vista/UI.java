@@ -177,5 +177,9 @@ public class UI extends JFrame {
 	public Botonera getBotonera() {
 		return botonera;
 	}
+
+	public JLabel getTextoMensaje() {
+		return textoMensaje;
+	}
 	
 }

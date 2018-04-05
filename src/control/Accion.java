@@ -19,22 +19,28 @@ public class Accion implements Comprobable {
 	}
 	
 	public void realizarJugada(Coordenada coordenada) {
+		this.paraui.getBotonera().getBotonera()[coordenada.getX()][coordenada.getY()].setText(String.valueOf(this.control.getCartas()[coordenada.getX()][coordenada.getY()].getValor()));
 		if(marcarCarta(coordenada, this.control.getCartas()) && !comprobarMarcable(this.control.getCartas())) {
 			if(comprobarParejas(this.control.getCartas())) {
-				if(comprobarVictoria(this.control.getCartas())) {
-					//TODO Hacer si ha habido victoria
-					System.out.println("Victoria");
-				}
-				
 				System.out.println("Son parejas");
+				desvelar();
+				// No se hace nada en principio
 				//TODO Hacer si son parejas pero no hay victoria ni derrota
-			} else if(comprobarDerrota(this.control.getFallos().getFallos(), this.control.getFallos().getLimiteFallos())) {
-					//TODO Hacer si ha habido derrota
-					System.out.println("Derrota");
 			} else {
 				//TODO Hacer si no son parejas
 				System.out.println("No son parejas");
+				borrarMarcadas();
 				this.control.getFallos().aumentarFallos();
+			}
+			
+			if(comprobarVictoria(this.control.getCartas())) {
+				bloquearCartas();
+				this.paraui.getTextoMensaje().setText("Has ganado");
+			}
+			
+			if(comprobarDerrota(this.control.getFallos().getFallos(), this.control.getFallos().getLimiteFallos())) {
+				bloquearCartas();
+				this.paraui.getTextoMensaje().setText("Has perdido");
 			}
 			desmarcarCartas(this.control.getCartas()); // Cada vez que se marquen dos cartas, pase lo que pase, hay que desmarcar todas para la siguiente jugada
 		}
@@ -106,6 +112,34 @@ public class Accion implements Comprobable {
 		for (int i = 0; i < cartas.length; i++) {
 			for (int j = 0; j < cartas.length; j++) {
 				cartas[i][j].setMarcada(false);
+			}
+		}
+	}
+	
+	public void bloquearCartas() {
+		for (int i = 0; i < this.paraui.getDimension(); i++) {
+			for (int j = 0; j < this.paraui.getDimension(); j++) {
+				this.paraui.getBotonera().getBotonera()[i][j].setEnabled(false);
+			}
+		}
+	}
+	
+	public void borrarMarcadas() {
+		for (int i = 0; i < this.paraui.getDimension(); i++) {
+			for (int j = 0; j < this.paraui.getDimension(); j++) {
+				if(this.control.getCartas()[i][j].isMarcada())
+				this.paraui.getBotonera().getBotonera()[i][j].setText("");
+			}
+		}
+	}
+	
+	public void desvelar() {
+		for (int i = 0; i < this.paraui.getDimension(); i++) {
+			for (int j = 0; j < this.paraui.getDimension(); j++) {
+				if(this.control.getCartas()[i][j].isMarcada()) {
+					this.control.getCartas()[i][j].setVelada(false);
+					this.paraui.getBotonera().getBotonera()[i][j].setEnabled(false);
+				}
 			}
 		}
 	}
