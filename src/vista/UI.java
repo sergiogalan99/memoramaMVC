@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import control.ActionCasilla;
+import control.ActionReiniciar;
 
 import javax.swing.JButton;
 import java.awt.GridLayout;
@@ -16,6 +17,10 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import java.awt.SystemColor;
+import javax.swing.ImageIcon;
 
 public class UI extends JFrame {
 
@@ -24,21 +29,22 @@ public class UI extends JFrame {
 	protected Botonera botonera;
 	private JLabel tituloJuego;
 	private JPanel panel_1;
-	private JLabel Mensaje;
-	protected JLabel textoMensaje;
-	private JLabel Aciertos;
-	protected JLabel numAciertos;
-	private JPanel panel_2;
+	private JLabel mensaje;
+	private JLabel jugadas;
+	protected JLabel numJugadas;
 	private JPanel panel_3;
 	protected JPanel panelJuego;
 	protected JButton botonJugar;
 	private JPanel panel;
 	protected JComboBox comboBox;
-	private JPanel panel_4;
 	protected JPanel panelPrincipal;
+	private JButton btnReiniciar;
+	private JPanel panel_2;
+	private JPanel panel_4;
 	
 	public UI() {
-		setMinimumSize(new Dimension(400, 400));
+		setPreferredSize(new Dimension(800, 800));
+		setMinimumSize(new Dimension(700, 700));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setTitle("Memorama");
@@ -48,12 +54,12 @@ public class UI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		tituloJuego = new JLabel("Memorama Game");
+		tituloJuego = new JLabel("MEMORAMA");
 		tituloJuego.setBorder(new EmptyBorder(10, 10, 10, 10));
 		tituloJuego.setOpaque(true);
 		tituloJuego.setForeground(Color.WHITE);
 		tituloJuego.setBackground(Color.DARK_GRAY);
-		tituloJuego.setFont(new Font("Tahoma", Font.BOLD, 24));
+		tituloJuego.setFont(new Font("Tahoma", Font.BOLD, 30));
 		tituloJuego.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(tituloJuego, BorderLayout.NORTH);
 		
@@ -74,30 +80,34 @@ public class UI extends JFrame {
 		panelPrincipal.add(tituloTamano, BorderLayout.NORTH);
 		
 		panel = new JPanel();
-		panel.setBorder(new EmptyBorder(0, 40, 0, 40));
+		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		panel.setBackground(Color.WHITE);
 		panelPrincipal.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		comboBox = new JComboBox();
+		comboBox.setBorder(new EmptyBorder(0, 20, 0, 20));
 		comboBox.setFont(new Font("Tahoma", Font.BOLD, 18));
 		comboBox.setMinimumSize(new Dimension(200, 20));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"4", "6", "8"}));
 		panel.add(comboBox, BorderLayout.NORTH);
 		
-		panel_4 = new JPanel();
-		panel_4.setBackground(Color.WHITE);
-		panel_4.setBorder(new EmptyBorder(0, 0, 50, 0));
-		panel.add(panel_4, BorderLayout.SOUTH);
-		panel_4.setLayout(new BorderLayout(0, 0));
+		panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.textHighlight);
+		panel_2.setBorder(new LineBorder(Color.DARK_GRAY));
+		panel.add(panel_2, BorderLayout.SOUTH);
+		panel_2.setLayout(new BorderLayout(0, 0));
 		
 		botonJugar = new JButton("Jugar");
+		panel_2.add(botonJugar);
+		botonJugar.setFont(new Font("Tahoma", Font.BOLD, 40));
+		botonJugar.setBorder(new EmptyBorder(20, 0, 20, 0));
+		botonJugar.setFocusPainted(false);
 		
 		botonJugar.setMinimumSize(new Dimension(130, 70));
-		panel_4.add(botonJugar);
-		botonJugar.setForeground(Color.BLACK);
+		botonJugar.setForeground(new Color(255, 255, 255));
 		botonJugar.setOpaque(false);
-		botonJugar.setBackground(Color.WHITE);
+		botonJugar.setBackground(new Color(244, 164, 96));
 		
 		
 	}
@@ -112,47 +122,56 @@ public class UI extends JFrame {
 		botonera=new Botonera(Integer.parseInt(dimension));
 		panelJuego.add(botonera, BorderLayout.CENTER);
 		GridLayout gl_botonera = new GridLayout(Integer.parseInt(dimension), Integer.parseInt(dimension));
-		gl_botonera.setVgap(1);
-		gl_botonera.setHgap(1);
+		gl_botonera.setVgap(3);
+		gl_botonera.setHgap(3);
 		botonera.setBackground(Color.LIGHT_GRAY);
 		botonera.setLayout(gl_botonera);
 		
 		panel_3 = new JPanel();
-		panel_3.setBorder(new EmptyBorder(0, 10, 0, 10));
+		panel_3.setBorder(new EmptyBorder(0, 0, 0, 0));
 		panelJuego.add(panel_3, BorderLayout.SOUTH);
 		panel_3.setLayout(new BorderLayout(0, 0));
 		
 		panel_1 = new JPanel();
 		panel_3.add(panel_1, BorderLayout.EAST);
-		panel_1.setBorder(new EmptyBorder(10, 0, 10, 0));
+		panel_1.setBorder(new EmptyBorder(10, 0, 10, 10));
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		Aciertos = new JLabel("Aciertos:");
-		Aciertos.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel_1.add(Aciertos, BorderLayout.WEST);
+		jugadas = new JLabel("Jugadas:");
+		jugadas.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panel_1.add(jugadas, BorderLayout.WEST);
 		
-		numAciertos = new JLabel("");
-		numAciertos.setBorder(new EmptyBorder(0, 5, 0, 0));
-		numAciertos.setFont(new Font("Tahoma", Font.BOLD, 11));
-		numAciertos.setForeground(Color.RED);
-		numAciertos.setHorizontalAlignment(SwingConstants.RIGHT);
-		numAciertos.setMaximumSize(new Dimension(20, 14));
-		panel_1.add(numAciertos, BorderLayout.EAST);
+		numJugadas = new JLabel("0");
+		numJugadas.setBorder(new EmptyBorder(0, 5, 0, 0));
+		numJugadas.setFont(new Font("Tahoma", Font.BOLD, 13));
+		numJugadas.setForeground(UIManager.getColor("FormattedTextField.selectionBackground"));
+		numJugadas.setHorizontalAlignment(SwingConstants.RIGHT);
+		numJugadas.setMaximumSize(new Dimension(20, 14));
+		panel_1.add(numJugadas, BorderLayout.EAST);
 		
-		panel_2 = new JPanel();
-		panel_3.add(panel_2, BorderLayout.WEST);
-		panel_2.setLayout(new BorderLayout(0, 0));
+		mensaje = new JLabel("\u00A1Completado!");
+		mensaje.setVisible(false);
+		mensaje.setBorder(new EmptyBorder(0, 15, 0, 15));
+		panel_3.add(mensaje, BorderLayout.WEST);
+		mensaje.setForeground(new Color(0, 100, 0));
+		mensaje.setMaximumSize(new Dimension(74, 14));
+		mensaje.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		mensaje.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		Mensaje = new JLabel("Mensaje:");
-		panel_2.add(Mensaje, BorderLayout.WEST);
-		Mensaje.setMaximumSize(new Dimension(74, 14));
-		Mensaje.setFont(new Font("Tahoma", Font.BOLD, 15));
-		Mensaje.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_4 = new JPanel();
+		panel_4.setBorder(new LineBorder(Color.DARK_GRAY));
+		panel_4.setForeground(Color.WHITE);
+		panel_4.setBackground(SystemColor.textHighlight);
+		panel_3.add(panel_4, BorderLayout.SOUTH);
+		panel_4.setLayout(new BorderLayout(0, 0));
 		
-		textoMensaje = new JLabel("  ");
-		panel_2.add(textoMensaje, BorderLayout.EAST);
-		textoMensaje.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		textoMensaje.setMaximumSize(new Dimension(250, 14));
+		btnReiniciar = new JButton("Reiniciar");
+		panel_4.add(btnReiniciar);
+		btnReiniciar.setForeground(Color.WHITE);
+		btnReiniciar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		btnReiniciar.setBackground(SystemColor.textHighlight);
+		btnReiniciar.setBorder(new EmptyBorder(10, 0, 10, 0));
+		btnReiniciar.setFocusPainted(false);
 		
 	}
 
@@ -163,23 +182,31 @@ public class UI extends JFrame {
 		return Integer.parseInt(this.dimension);
 	}
 
-	public void setListeners(ActionCasilla listenerCasilla) {
+	public void setListeners(ActionCasilla listenerCasilla, ActionReiniciar listenerReiniciar) {
 		int dimension=Integer.parseInt(this.dimension);
 		for (int i = 0; i < dimension; i++) {
 			for (int j = 0; j < dimension; j++) {
 				this.botonera.getBotonera()[i][j].addActionListener(listenerCasilla);
-				
 			}
 			
 		}
+		btnReiniciar.addActionListener(listenerReiniciar);
 	}
 
 	public Botonera getBotonera() {
 		return botonera;
 	}
 
-	public JLabel getTextoMensaje() {
-		return textoMensaje;
+	public JLabel getMensaje() {
+		return mensaje;
+	}
+
+	public JLabel getNumJugadas() {
+		return numJugadas;
+	}
+
+	public void setNumJugadas(JLabel numJugadas) {
+		this.numJugadas = numJugadas;
 	}
 	
 }

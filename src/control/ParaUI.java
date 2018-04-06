@@ -12,12 +12,13 @@ public class ParaUI extends UI {
 	private Tablero control;
 	private Accion acciones = new Accion(this);
 	private ActionCasilla listenerCasilla= new ActionCasilla(this);
+	private ActionReiniciar listenerReiniciar = new ActionReiniciar(this);
 	
 	public ParaUI() {
 		botonJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dimension = crearJuego();
-				setListeners(listenerCasilla);
+				setListeners(listenerCasilla, listenerReiniciar);
 				control = new Tablero(dimension);
 				acciones.setControl(control);
 			}
@@ -39,7 +40,5 @@ public class ParaUI extends UI {
 	public ActionCasilla getListenerCasilla() {
 		return listenerCasilla;
 	}
-	
-	
 
 }

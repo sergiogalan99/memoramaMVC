@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import modelo.Carta;
 import modelo.Coordenada;
 
 public class ActionCasilla implements ActionListener {
@@ -19,7 +20,10 @@ public class ActionCasilla implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.coordenada.setCoordenadas((((JButton) e.getSource()).getName()));
-		paraui.getAcciones().realizarJugada(this.coordenada);
+		Carta carta = this.paraui.getControl().getCartas()[this.coordenada.getX()][this.coordenada.getY()];
+		if(carta.isVelada()) {
+			paraui.getAcciones().realizarJugada(this.coordenada);
+		}
 	}
 
 }

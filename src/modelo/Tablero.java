@@ -5,15 +5,21 @@ public class Tablero {
 	private int dimension;
 	private int cantidadParejas;
 	private int cantidadCartas;
-	private int intentos;
+	private int jugadas;
 	private Carta[][] cartas;
+	private String[] imagenesCartas;
 
 	public Tablero(int dimension) {
 		this.dimension = dimension;
 		this.cantidadCartas = (int) Math.pow(this.dimension, 2);
 		this.cantidadParejas = this.cantidadCartas / 2;
+		this.imagenesCartas = new String[this.cantidadParejas];
 		inicializar();
 		sortearValores();
+		
+		for (int i = 0; i < this.cantidadParejas; i++) {
+			this.imagenesCartas[i] = "/assets/" + (i + 1) + ".jpg";
+		}
 	}
 
 	public void desvelar(Carta casilla) {
@@ -108,12 +114,31 @@ public class Tablero {
 		this.cantidadCartas = cantidadCartas;
 	}
 
-	public int getIntentos() {
-		return intentos;
+	public int getJugadas() {
+		return jugadas;
 	}
 
-	public void setIntentos(int intentos) {
-		this.intentos = intentos;
+	public void setJugadas(int jugadas) {
+		this.jugadas = jugadas;
+	}
+
+	public String[] getImagenesCartas() {
+		return imagenesCartas;
+	}
+
+	public void setImagenesCartas(String[] imagenesCartas) {
+		this.imagenesCartas = imagenesCartas;
+	}
+
+	public void reiniciar() {
+		for (int i = 0; i < this.dimension; i++) {
+			for (int j = 0; j < this.dimension; j++) {
+				this.cartas[i][j] = null;
+			}
+		}
+		this.jugadas = 0;
+		inicializar();
+		sortearValores();
 	}
 
 }
