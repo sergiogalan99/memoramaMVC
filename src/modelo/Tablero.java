@@ -5,8 +5,8 @@ public class Tablero {
 	private int dimension;
 	private int cantidadParejas;
 	private int cantidadCartas;
+	private int intentos;
 	private Carta[][] cartas;
-	private Fallo fallos = new Fallo();
 
 	public Tablero(int dimension) {
 		this.dimension = dimension;
@@ -104,16 +104,16 @@ public class Tablero {
 		return cantidadCartas;
 	}
 
-	public Fallo getFallos() {
-		return fallos;
-	}
-
 	public void setCantidadCartas(int cantidadCartas) {
 		this.cantidadCartas = cantidadCartas;
 	}
 
-	public void setFallos(Fallo fallos) {
-		this.fallos = fallos;
+	public int getIntentos() {
+		return intentos;
+	}
+
+	public void setIntentos(int intentos) {
+		this.intentos = intentos;
 	}
 
 }

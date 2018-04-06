@@ -31,7 +31,7 @@ public class Botonera extends JPanel {
 	
 	private void establecerPropiedades(JButton boton) {
 		boton.setBackground(Color.WHITE);
-		boton.setFont(new Font("Sans Serif", Font.BOLD, 18));
+		boton.setFont(new Font("Sans Serif", Font.BOLD, 15));
 	}
 	
 	public void deshabilitarBoton(JButton boton) {

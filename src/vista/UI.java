@@ -146,7 +146,7 @@ public class UI extends JFrame {
 		Mensaje = new JLabel("Mensaje:");
 		panel_2.add(Mensaje, BorderLayout.WEST);
 		Mensaje.setMaximumSize(new Dimension(74, 14));
-		Mensaje.setFont(new Font("Tahoma", Font.BOLD, 12));
+		Mensaje.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Mensaje.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		textoMensaje = new JLabel("  ");
