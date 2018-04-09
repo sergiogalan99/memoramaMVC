@@ -25,6 +25,10 @@ public class Tablero {
 	public void desvelar(Carta casilla) {
 		casilla.setVelada(false);
 	}
+	
+	public void aumentarJugada() {
+		this.jugadas++;
+	}
 
 	private void inicializar() {
 		cartas = new Carta[dimension][dimension];

@@ -2,43 +2,44 @@ package control;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
+
 import modelo.Carta;
 import modelo.Coordenada;
 import modelo.Tablero;
 
-public class Accion implements Comprobable {
+public class Accion implements Comprobable, Marcable {
 
 	private ParaUI paraui;
 	private Tablero control;
+	private Timer timer;
 
-	public Accion(ParaUI paraui, Tablero control) {
+	public Accion(ParaUI paraui, Timer timer) {
 		this.paraui = paraui;
-		this.control = control;
+		this.timer = timer;
 	}
 
-	public Accion(ParaUI paraui) {
-		this.paraui = paraui;
-	}
-
-	public void realizarJugada(Coordenada coordenada) {
+	public boolean realizarJugada(Coordenada coordenada) {
+		this.timer.start();
 		establecerIcono(coordenada);
 		
 		if (marcarCarta(coordenada, this.control.getCartas()) && !comprobarMarcable(this.control.getCartas())) {
-			if (comprobarParejas(this.control.getCartas())) {
-				System.out.println("Son parejas");
-				desvelarMarcadas();
-			} else {
-				System.out.println("No son parejas");
-				borrarMarcadas();
-			}
-			this.control.setJugadas(this.control.getJugadas() + 1);
+			this.control.aumentarJugada();
 			this.paraui.getNumJugadas().setText(String.valueOf(this.control.getJugadas()));
-			desmarcarCartas(this.control.getCartas()); // Siempre hay que desmarcar todas para la siguiente jugada
+
+			if (comprobarParejas(this.control.getCartas())) {
+				desvelarMarcadas();
+				desmarcarCartas(this.control.getCartas());
+			} else {
+				return false;
+			}
 		}
 		
 		if(comprobarCompletado(this.control.getCartas())) {
 			this.paraui.getMensaje().setVisible(true);
 		}
+		
+		return true;
 	}
 
 	@Override
@@ -86,12 +87,12 @@ public class Accion implements Comprobable {
 		return true;
 	}
 	
-	public void establecerIcono(Coordenada coordenada) {
-		Carta carta = this.control.getCartas()[coordenada.getX()][coordenada.getY()];
-		
-		this.paraui.getBotonera().getBotonera()[coordenada.getX()][coordenada.getY()].setIcon(createScaledIcon(new ImageIcon(getClass().getResource(this.control.getImagenesCartas()[carta.getValor() - 1])), this.paraui.getBotonera().getBotonera()[0][0].getHeight()));
+	@Override
+	public boolean comprobarDerrota(int valor) {
+		return valor == 0;
 	}
-
+	
+	@Override
 	public boolean marcarCarta(Coordenada coordenadas, Carta[][] cartas) {
 		Carta carta = cartas[coordenadas.getX()][coordenadas.getY()];
 
@@ -102,8 +103,21 @@ public class Accion implements Comprobable {
 			return false;
 		}
 	}
+	
+	public void establecerIcono(Coordenada coordenada) {
+		Carta carta = this.control.getCartas()[coordenada.getX()][coordenada.getY()];
+		
+		this.paraui.getBotonera().getBotonera()[coordenada.getX()][coordenada.getY()].setIcon(createScaledIcon(new ImageIcon(getClass().getResource(this.control.getImagenesCartas()[carta.getValor() - 1])), this.paraui.getBotonera().getBotonera()[0][0].getHeight()));
+	}
 
+	/**
+	 * Cambia la propiedad -marcada- a FALSE
+	 * 
+	 * @param cartas
+	 */
 	public void desmarcarCartas(Carta[][] cartas) {
+		assert cartas != null : "La matriz es nula";
+		
 		for (int i = 0; i < cartas.length; i++) {
 			for (int j = 0; j < cartas.length; j++) {
 				cartas[i][j].setMarcada(false);
@@ -119,7 +133,7 @@ public class Accion implements Comprobable {
 	 * @return Icono escalado
 	 */
 	public ImageIcon createScaledIcon(ImageIcon Imagen, int height) {
-		return new ImageIcon(Imagen.getImage().getScaledInstance(height - 20, height - 20, Image.SCALE_SMOOTH));
+		return new ImageIcon(Imagen.getImage().getScaledInstance(height - 5, height - 5, Image.SCALE_SMOOTH));
 	}
 
 	public void bloquearCartas() {
@@ -130,6 +144,9 @@ public class Accion implements Comprobable {
 		}
 	}
 
+	/**
+	 * Elimina el icono que contengan aquellas cartas, que en el momento de la llamada, se encuentren marcadas.
+	 */
 	public void borrarMarcadas() {
 		for (int i = 0; i < this.paraui.getDimension(); i++) {
 			for (int j = 0; j < this.paraui.getDimension(); j++) {
@@ -140,11 +157,15 @@ public class Accion implements Comprobable {
 		}
 	}
 
+	/**
+	 * Cambia la propiedad -velada- a FALSE en aquellas cartas que, en el momento de la llamada, se encuentren marcadas.
+	 */
 	public void desvelarMarcadas() {
 		for (int i = 0; i < this.paraui.getDimension(); i++) {
 			for (int j = 0; j < this.paraui.getDimension(); j++) {
 				if (this.control.getCartas()[i][j].isMarcada()) {
 					this.control.getCartas()[i][j].setVelada(false);
+					this.paraui.getBotonera().getBotonera()[i][j].setVisible(false);
 				}
 			}
 		}
@@ -153,9 +174,14 @@ public class Accion implements Comprobable {
 	public void reiniciar() {
 		this.paraui.getMensaje().setVisible(false);
 		this.paraui.getNumJugadas().setText(String.valueOf(this.control.getJugadas()));
+		this.paraui.getProgressBar().setValue(100);
+		this.paraui.getProgressBar().setString("100 segundos");
+		this.timer.stop();
 		for (int i = 0; i < this.control.getDimension(); i++) {
 			for (int j = 0; j < this.control.getDimension(); j++) {
 				this.paraui.getBotonera().getBotonera()[i][j].setIcon(null);
+				this.paraui.getBotonera().getBotonera()[i][j].setVisible(true);
+				this.paraui.getBotonera().getBotonera()[i][j].setEnabled(true);
 			}
 		}
 	}
@@ -174,6 +200,14 @@ public class Accion implements Comprobable {
 
 	public void setControl(Tablero control) {
 		this.control = control;
+	}
+
+	public Timer getTimer() {
+		return timer;
+	}
+
+	public void setTimer(Timer timer) {
+		this.timer = timer;
 	}
 
 }

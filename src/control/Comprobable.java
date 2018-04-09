@@ -28,5 +28,13 @@ public interface Comprobable {
 	 * @return Retorna TRUE en caso de que se hayan desvelado todas las cartas o FALSE en caso contrario
 	 */
 	public boolean comprobarCompletado(Carta[][] cartas);
+	
+	/**
+	 * Comprueba si el valor es igual a 0.
+	 * 
+	 * @param valor
+	 * @return Retorna TRUE en caso de que el valor sea igual a 0 o FALSE en caso contrario.
+	 */
+	public boolean comprobarDerrota(int valor);
 
 }

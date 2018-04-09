@@ -33,6 +33,7 @@ public class Botonera extends JPanel {
 		boton.setBackground(Color.WHITE);
 		boton.setFont(new Font("Sans Serif", Font.BOLD, 18));
 		boton.setFocusPainted(false);
+		boton.setBorder(null);
 	}
 	
 	public void deshabilitarBoton(JButton boton) {
