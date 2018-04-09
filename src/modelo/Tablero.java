@@ -1,6 +1,11 @@
 package modelo;
 
-public class Tablero {
+import control.Comprobable;
+import control.Desvelable;
+import control.Jugable;
+import control.Marcable;
+
+public class Tablero implements Marcable, Comprobable, Desvelable, Jugable {
 
 	private int dimension;
 	private int cantidadParejas;
@@ -14,32 +19,149 @@ public class Tablero {
 		this.cantidadCartas = (int) Math.pow(this.dimension, 2);
 		this.cantidadParejas = this.cantidadCartas / 2;
 		this.imagenesCartas = new String[this.cantidadParejas];
-		inicializar();
-		sortearValores();
-		
-		for (int i = 0; i < this.cantidadParejas; i++) {
-			this.imagenesCartas[i] = "/assets/" + (i + 1) + ".jpg";
+		this.cartas = new Carta[this.dimension][this.dimension];
+		inicializarCartas();
+		sortearValoresCartas();
+		inicializarImagenesCartas();
+	}
+	
+	@Override
+	public boolean realizarJugada(Coordenada coordenada) {
+		if (marcarCarta(coordenada, this.cartas)
+				&& !comprobarMarcable(this.cartas)) {
+			if (comprobarParejas(this.cartas)) {
+				desvelarMarcadas(this.cartas);
+				desmarcarCartas(this.cartas);
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean comprobarParejas(Carta[][] cartas) {
+		Carta[] marcadas = new Carta[2];
+
+		for (Carta[] i : cartas) {
+			for (Carta carta : i) {
+				if (carta.isMarcada()) {
+					if (marcadas[0] == null) {
+						marcadas[0] = carta;
+					} else {
+						marcadas[1] = carta;
+						break;
+					}
+				}
+			}
+			if (marcadas[1] != null) {
+				break;
+			}
+		}
+
+		return marcadas[0].getValor() == marcadas[1].getValor();
+	}
+
+	@Override
+	public boolean comprobarMarcable(Carta[][] cartas) {
+		int marcadas = 0;
+		for (Carta[] i : cartas) {
+			for (Carta carta : i) {
+				if (carta.isMarcada()) {
+					marcadas++;
+				}
+			}
+		}
+
+		return marcadas < 2;
+	}
+
+	@Override
+	public boolean comprobarCompletado(Carta[][] cartas) {
+		for (Carta[] i : cartas) {
+			for (Carta carta : i) {
+				if (carta.isVelada()) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean comprobarDerrota(int valor) {
+		return valor == 0;
+	}
+
+	@Override
+	public boolean marcarCarta(Coordenada coordenadas, Carta[][] cartas) {
+		Carta carta = cartas[coordenadas.getX()][coordenadas.getY()];
+
+		if (carta.isVelada() && comprobarMarcable(cartas)) {
+			cartas[coordenadas.getX()][coordenadas.getY()].setMarcada(true);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public void desvelarMarcadas(Carta[][] cartas) {
+		for (Carta[] i : cartas) {
+			for (Carta carta : i) {
+				if (carta.isMarcada()) {
+					carta.setVelada(false);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void desmarcarCartas(Carta[][] cartas) {
+		for (Carta[] i : cartas) {
+			for (Carta carta : i) {
+				carta.setMarcada(false);
+			}
 		}
 	}
 
 	public void desvelar(Carta casilla) {
 		casilla.setVelada(false);
 	}
-	
-	public void aumentarJugada() {
-		this.jugadas++;
+
+	public void reiniciar() {
+		for (int i = 0; i < this.dimension; i++) {
+			for (int j = 0; j < this.dimension; j++) {
+				this.cartas[i][j] = null;
+			}
+		}
+		this.jugadas = 0;
+		inicializarCartas();
+		sortearValoresCartas();
 	}
 
-	private void inicializar() {
-		cartas = new Carta[dimension][dimension];
-		for (int i = 0; i < cartas.length; i++) {
-			for (int j = 0; j < cartas.length; j++) {
+	private void inicializarCartas() {
+		for (int i = 0; i < this.dimension; i++) {
+			for (int j = 0; j < this.dimension; j++) {
 				cartas[i][j] = new Carta();
 			}
 		}
 	}
+	
+	/**
+	 * Inicializar el vector que contiene la direccion de las imagenes asociadas a cada carta
+	 */
+	private void inicializarImagenesCartas() {
+		for (int i = 0; i < this.cantidadParejas; i++) {
+			this.imagenesCartas[i] = "/assets/" + (i + 1) + ".jpg";
+		}
+	}
 
-	private void sortearValores() {
+	/**
+	 * Establece valores a cada instancia de la matriz de forma pareja.
+	 */
+	private void sortearValoresCartas() {
 		int valorEstablecido;
 		Coordenada coordenada;
 		for (int i = 1; i <= this.cantidadParejas; i++) {
@@ -57,23 +179,36 @@ public class Tablero {
 		}
 		mostrarTablero();
 	}
-	
+
+	/**
+	 * Muestra el valor de las cartas contenidas en la matriz de tipo Carta
+	 */
 	private void mostrarTablero() {
-		for (int i = 0; i < this.dimension; i++) {
-			for (int j = 0; j < this.dimension; j++) {
-				System.out.print(this.cartas[i][j].getValor() + " ");
+		for (Carta[] i : this.cartas) {
+			for (Carta carta : i) {
+				System.out.print(carta.getValor() + " ");
 			}
 			System.out.println();
 		}
 	}
 
+	/**
+	 * Comprueba si el valor de la casilla especificada es cero.
+	 * 
+	 * @param casilla
+	 * @return Retorna TRUE en caso de que el valor de la casilla especificada sea cero o FALSE en caso contrario.
+	 */
 	private boolean comprobarValorCero(Carta casilla) {
-		if (casilla.getValor() == 0) {
-			return true;
-		}
-		return false;
+		return casilla.getValor() == 0;
 	}
 
+	/**
+	 * Genera un numero aleatorio entre un minimo y un maximo
+	 * 
+	 * @param max
+	 * @param min
+	 * @return Retorna un valor de tipo Integer entre un minimo y un maximo
+	 */
 	private int generarNumeroAleatorio(int max, int min) {
 		return (int) (Math.random() * (max - min)) + min;
 	}
@@ -132,17 +267,6 @@ public class Tablero {
 
 	public void setImagenesCartas(String[] imagenesCartas) {
 		this.imagenesCartas = imagenesCartas;
-	}
-
-	public void reiniciar() {
-		for (int i = 0; i < this.dimension; i++) {
-			for (int j = 0; j < this.dimension; j++) {
-				this.cartas[i][j] = null;
-			}
-		}
-		this.jugadas = 0;
-		inicializar();
-		sortearValores();
 	}
 
 }

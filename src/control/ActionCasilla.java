@@ -22,16 +22,16 @@ public class ActionCasilla implements ActionListener {
 		final SwingWorker worker = new SwingWorker() {
 			protected Object doInBackground() throws Exception {
 				paraui.penalizarTiempo();
-				Thread.sleep(500);
+				Thread.sleep(900);
 				paraui.getAcciones().borrarMarcadas();
-				paraui.getAcciones().desmarcarCartas(paraui.getControl().getCartas());
+				paraui.getControl().desmarcarCartas(paraui.getControl().getCartas());
 				return null;
 			};
 		};
 		
 		this.coordenada.setCoordenadas((((JButton) e.getSource()).getName()));
 		Carta carta = this.paraui.getControl().getCartas()[this.coordenada.getX()][this.coordenada.getY()];
-		if(carta.isVelada() && this.paraui.getAcciones().comprobarMarcable(this.paraui.getControl().getCartas())) {
+		if(carta.isVelada() && this.paraui.getControl().comprobarMarcable(this.paraui.getControl().getCartas())) {
 			if(!paraui.getAcciones().realizarJugada(this.coordenada)) {
 				worker.execute();
 			} else {

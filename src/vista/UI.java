@@ -29,6 +29,7 @@ public class UI extends JFrame {
 	private Color colorProgreso = new Color(32, 187, 129);
 	private Color colorPenalizado = new Color(229, 40, 40);
 	private String dimension;
+	private int tiempo;
 	private JPanel contentPane;
 	protected Botonera botonera;
 	private JLabel tituloJuego;
@@ -73,7 +74,6 @@ public class UI extends JFrame {
 	}
 
 	private void crearPanelPrincipal(){
-		
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(Color.WHITE);
 		contentPane.add(panelPrincipal, BorderLayout.CENTER);
@@ -106,8 +106,8 @@ public class UI extends JFrame {
 		
 		botonJugar = new JButton("Jugar");
 		panel_2.add(botonJugar);
-		botonJugar.setFont(new Font("Tahoma", Font.BOLD, 40));
-		botonJugar.setBorder(new EmptyBorder(20, 0, 20, 0));
+		botonJugar.setFont(new Font("Tahoma", Font.BOLD, 80));
+		botonJugar.setBorder(new EmptyBorder(10, 0, 10, 0));
 		botonJugar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botonJugar.setFocusPainted(false);
 		
@@ -115,8 +115,6 @@ public class UI extends JFrame {
 		botonJugar.setForeground(new Color(255, 255, 255));
 		botonJugar.setOpaque(false);
 		botonJugar.setBackground(new Color(244, 164, 96));
-		
-		
 	}
 
 	public void crearPanelJuego(String dimension){
@@ -181,9 +179,7 @@ public class UI extends JFrame {
 		progressBar.setBorder(null);
 		panel_5.add(progressBar, BorderLayout.NORTH);
 		progressBar.setBorderPainted(false);
-		progressBar.setString("");
 		progressBar.setMinimumSize(new Dimension(10, 50));
-		progressBar.setToolTipText("");
 		progressBar.setValue(100);
 		progressBar.setMaximum(100);
 		progressBar.setMinimum(0);
@@ -202,6 +198,7 @@ public class UI extends JFrame {
 
 	public int crearJuego() {
 		this.dimension = (String) comboBox.getSelectedItem();
+		this.tiempo = (int) ((Integer.parseInt(this.dimension) * 0.5 ) * 1000);
 		remove(panelPrincipal);
 		crearPanelJuego(this.dimension);
 		return Integer.parseInt(this.dimension);
@@ -256,6 +253,10 @@ public class UI extends JFrame {
 
 	public void setProgressBar(JProgressBar progressBar) {
 		this.progressBar = progressBar;
+	}
+
+	public int getTiempo() {
+		return tiempo;
 	}
 	
 }

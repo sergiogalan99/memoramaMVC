@@ -26,6 +26,7 @@ public class ParaUI extends UI {
 				setListeners(listenerCasilla, listenerReiniciar);
 				control = new Tablero(dimension);
 				acciones.setControl(control);
+				acciones.getTimer().setDelay(getTiempo());
 			}
 		});
 	}
