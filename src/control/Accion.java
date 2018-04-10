@@ -1,38 +1,56 @@
 package control;
 
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import javax.swing.Timer;
+import java.awt.Color;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import modelo.Carta;
 import modelo.Coordenada;
-import modelo.Tablero;
 
 public class Accion implements Jugable{
 
 	private ParaUI paraui;
-	private Tablero control;
-	private Timer timer;
 
-	public Accion(ParaUI paraui, Timer timer) {
+	public Accion(ParaUI paraui) {
 		this.paraui = paraui;
-		this.timer = timer;
 	}
 
 	@Override
 	public boolean realizarJugada(Coordenada coordenada) {
-		this.timer.start();
+		this.paraui.getTimer().start();
 		establecerIcono(coordenada);
+		this.paraui.getBotonera().getBotonera()[coordenada.getX()][coordenada.getY()].setBackground(Color.WHITE);
 		
-		if(!this.control.realizarJugada(coordenada)) {
+		if(this.paraui.realizarJugada(coordenada)) {
+			if(!this.paraui.comprobarMarcable(this.paraui.getCartas())) {
+				this.paraui.despenalizarTiempo();
+				ocultarMarcadas();
+				this.paraui.desmarcarCartas(this.paraui.getCartas());
+			}
+			
+			if(this.paraui.comprobarCompletado(this.paraui.getCartas())) {
+				this.paraui.getTimer().stop();
+				//TODO Cuando se ha completado el juego
+			}
+
+		} else {
 			return false;
 		}
 		
-		if(this.control.comprobarCompletado(this.control.getCartas())) {
-			this.paraui.getMensaje().setVisible(true);
-		}
-		
 		return true;
+	}
+	
+	/**
+	 * Oculta los botones correspondientes a las cartas marcadas en el momento de la ejecucion
+	 */
+	public void ocultarMarcadas() {
+		for (int i = 0; i < this.paraui.getDimension(); i++) {
+			for (int j = 0; j < this.paraui.getDimension(); j++) {
+				if(this.paraui.getCartas()[i][j].isMarcada()) {
+					this.paraui.getBotonera().getBotonera()[i][j].setVisible(false);
+				}
+			}
+		}
 	}
 
 	/**
@@ -43,30 +61,17 @@ public class Accion implements Jugable{
 	 * @param coordenada
 	 */
 	private void establecerIcono(Coordenada coordenada) {
-		Carta carta = this.control.getCartas()[coordenada.getX()][coordenada.getY()];
+		Carta carta = this.paraui.getCartas()[coordenada.getX()][coordenada.getY()];
 
-		this.paraui.getBotonera().getBotonera()[coordenada.getX()][coordenada.getY()].setIcon(createScaledIcon(
-				new ImageIcon(getClass().getResource(this.control.getImagenesCartas()[carta.getValor() - 1])),
+		this.paraui.getBotonera().getBotonera()[coordenada.getX()][coordenada.getY()].setIcon(this.paraui.createScaledIcon(
+				new ImageIcon(getClass().getResource(this.paraui.getImagenesCartas()[carta.getValor() - 1])),
 				this.paraui.getBotonera().getBotonera()[0][0].getHeight()));
 	}
 
-	/**
-	 * Escala un icono en base a una medida
-	 * 
-	 * @param Imagen
-	 *            Icono a escalar
-	 * @param height
-	 *            Medida con la que escalar
-	 * @return Icono escalado
-	 */
-	private ImageIcon createScaledIcon(ImageIcon Imagen, int height) {
-		return new ImageIcon(Imagen.getImage().getScaledInstance(height - 5, height - 5, Image.SCALE_SMOOTH));
-	}
-
 	public void bloquearCartas() {
-		for (int i = 0; i < this.paraui.getDimension(); i++) {
-			for (int j = 0; j < this.paraui.getDimension(); j++) {
-				this.paraui.getBotonera().getBotonera()[i][j].setEnabled(false);
+		for (JButton[] i : this.paraui.getBotonera().getBotonera()) {
+			for (JButton boton : i) {
+				boton.setEnabled(false);
 			}
 		}
 	}
@@ -78,23 +83,24 @@ public class Accion implements Jugable{
 	public void borrarMarcadas() {
 		for (int i = 0; i < this.paraui.getDimension(); i++) {
 			for (int j = 0; j < this.paraui.getDimension(); j++) {
-				if (this.control.getCartas()[i][j].isMarcada()) {
+				if (this.paraui.getCartas()[i][j].isMarcada()) {
 					this.paraui.getBotonera().getBotonera()[i][j].setIcon(null);
+					this.paraui.getBotonera().getBotonera()[i][j].setBackground(this.paraui.getCartaVelada());
 				}
 			}
 		}
 	}
 
 	public void reiniciar() {
-		this.paraui.getMensaje().setVisible(false);
-		this.paraui.getNumJugadas().setText(String.valueOf(this.control.getJugadas()));
 		this.paraui.getProgressBar().setValue(100);
-		this.timer.stop();
-		for (int i = 0; i < this.control.getDimension(); i++) {
-			for (int j = 0; j < this.control.getDimension(); j++) {
-				this.paraui.getBotonera().getBotonera()[i][j].setIcon(null);
-				this.paraui.getBotonera().getBotonera()[i][j].setVisible(true);
-				this.paraui.getBotonera().getBotonera()[i][j].setEnabled(true);
+		this.paraui.getTimer().stop();
+
+		for (JButton[] i : this.paraui.getBotonera().getBotonera()) {
+			for (JButton boton : i) {
+				boton.setIcon(null);
+				boton.setVisible(true);
+				boton.setEnabled(true);
+				boton.setBackground(this.paraui.getCartaVelada());
 			}
 		}
 	}
@@ -103,24 +109,8 @@ public class Accion implements Jugable{
 		return paraui;
 	}
 
-	public Tablero getControl() {
-		return control;
-	}
-
 	public void setParaui(ParaUI paraui) {
 		this.paraui = paraui;
-	}
-
-	public void setControl(Tablero control) {
-		this.control = control;
-	}
-
-	public Timer getTimer() {
-		return timer;
-	}
-
-	public void setTimer(Timer timer) {
-		this.timer = timer;
 	}
 
 }

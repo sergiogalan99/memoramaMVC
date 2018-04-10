@@ -17,6 +17,7 @@ public class ActionProgreso implements ActionListener {
 		
 		if(this.paraUI.getControl().comprobarDerrota(this.paraUI.getProgressBar().getValue())) {
 			this.paraUI.getAcciones().bloquearCartas();
+			// TODO Cuando se acaba el tiempo
 		}
 	}
 
