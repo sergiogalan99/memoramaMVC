@@ -21,6 +21,7 @@ import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
 import javax.swing.ImageIcon;
 import javax.swing.JProgressBar;
+import javax.swing.JTextPane;
 
 public class UI extends JFrame {
 
@@ -35,6 +36,8 @@ public class UI extends JFrame {
 	protected JPanel panelPrincipal;
 	private JButton btnReiniciar;
 	protected JProgressBar progressBar;
+	private JLabel label;
+	private JLabel label_1;
 	private JPanel panel_1;
 	
 	public UI() {
@@ -58,9 +61,49 @@ public class UI extends JFrame {
 		tituloJuego.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(tituloJuego, BorderLayout.NORTH);
 		
+		
 		crearPanelPrincipal();
+	
+		
 	}
-
+	private void panelFinalPerdedor() {
+		
+		btnReiniciar = new JButton("Reiniciar");
+		contentPane.add(btnReiniciar, BorderLayout.SOUTH);
+		btnReiniciar.setForeground(Color.WHITE);
+		btnReiniciar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		btnReiniciar.setBackground(SystemColor.textHighlight);
+		btnReiniciar.setBorder(new EmptyBorder(5, 0, 5, 0));
+		btnReiniciar.setFocusPainted(false);
+		btnReiniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		label = new JLabel("");
+		label.setIcon(new ImageIcon(UI.class.getResource("/assets/GameOver.jpg")));
+		contentPane.add(label, BorderLayout.CENTER);
+		
+		
+		
+	}
+	
+	private void panelFinalGanador() {
+		btnReiniciar = new JButton("Reiniciar");
+		contentPane.add(btnReiniciar, BorderLayout.SOUTH);
+		btnReiniciar.setForeground(Color.WHITE);
+		btnReiniciar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		btnReiniciar.setBackground(SystemColor.textHighlight);
+		btnReiniciar.setBorder(new EmptyBorder(5, 0, 5, 0));
+		btnReiniciar.setFocusPainted(false);
+		btnReiniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		label_1 = new JLabel("");
+		label_1.setIcon(new ImageIcon(UI.class.getResource("/assets/ganar.jpg")));
+		contentPane.add(label_1, BorderLayout.CENTER);
+		
+		
+	}
+	
+	
+	
 	private void crearPanelPrincipal(){
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(new Color(255, 127, 80));
