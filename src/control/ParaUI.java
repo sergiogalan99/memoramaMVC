@@ -100,10 +100,6 @@ public class ParaUI extends UI {
 		return control.marcarCarta(coordenadas, cartas);
 	}
 
-	public void reiniciar() {
-		control.reiniciar();
-	}
-
 	public int getCantidadParejas() {
 		return control.getCantidadParejas();
 	}
@@ -154,6 +150,10 @@ public class ParaUI extends UI {
 
 	public void setImagenesCartas(String[] imagenesCartas) {
 		control.setImagenesCartas(imagenesCartas);
+	}
+
+	public void reiniciar() {
+		acciones.reiniciar();
 	}
 
 }

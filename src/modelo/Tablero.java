@@ -183,12 +183,16 @@ public class Tablero implements Marcable, Comprobable, Desvelable, Jugable {
 	 * Muestra el valor de las cartas contenidas en la matriz de tipo Carta
 	 */
 	private void mostrarTablero() {
+		System.out.println("\n------------\n");
+
 		for (Carta[] i : this.cartas) {
 			for (Carta carta : i) {
 				System.out.print(carta.getValor() + " ");
 			}
 			System.out.println();
 		}
+
+		System.out.println("\n------------\n");
 	}
 
 	/**

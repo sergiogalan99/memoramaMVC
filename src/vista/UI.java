@@ -21,7 +21,6 @@ import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
 import javax.swing.ImageIcon;
 import javax.swing.JProgressBar;
-import javax.swing.JTextPane;
 
 public class UI extends JFrame {
 
@@ -36,8 +35,6 @@ public class UI extends JFrame {
 	protected JPanel panelPrincipal;
 	private JButton btnReiniciar;
 	protected JProgressBar progressBar;
-	private JLabel label;
-	private JLabel label_1;
 	private JPanel panel_1;
 	
 	public UI() {
@@ -61,48 +58,9 @@ public class UI extends JFrame {
 		tituloJuego.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(tituloJuego, BorderLayout.NORTH);
 		
-		
 		crearPanelPrincipal();
 	
-		
 	}
-	private void panelFinalPerdedor() {
-		
-		btnReiniciar = new JButton("Reiniciar");
-		contentPane.add(btnReiniciar, BorderLayout.SOUTH);
-		btnReiniciar.setForeground(Color.WHITE);
-		btnReiniciar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
-		btnReiniciar.setBackground(SystemColor.textHighlight);
-		btnReiniciar.setBorder(new EmptyBorder(5, 0, 5, 0));
-		btnReiniciar.setFocusPainted(false);
-		btnReiniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
-		label = new JLabel("");
-		label.setIcon(new ImageIcon(UI.class.getResource("/assets/GameOver.jpg")));
-		contentPane.add(label, BorderLayout.CENTER);
-		
-		
-		
-	}
-	
-	private void panelFinalGanador() {
-		btnReiniciar = new JButton("Reiniciar");
-		contentPane.add(btnReiniciar, BorderLayout.SOUTH);
-		btnReiniciar.setForeground(Color.WHITE);
-		btnReiniciar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
-		btnReiniciar.setBackground(SystemColor.textHighlight);
-		btnReiniciar.setBorder(new EmptyBorder(5, 0, 5, 0));
-		btnReiniciar.setFocusPainted(false);
-		btnReiniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
-		label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(UI.class.getResource("/assets/ganar.jpg")));
-		contentPane.add(label_1, BorderLayout.CENTER);
-		
-		
-	}
-	
-	
 	
 	private void crearPanelPrincipal(){
 		panelPrincipal = new JPanel();
@@ -117,6 +75,7 @@ public class UI extends JFrame {
 		panelPrincipal.add(tituloTamano, BorderLayout.NORTH);
 		
 		JPanel panel = new JPanel();
+		panel.setToolTipText("");
 		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		panel.setBackground(Color.WHITE);
 		panelPrincipal.add(panel, BorderLayout.CENTER);
@@ -172,6 +131,7 @@ public class UI extends JFrame {
 		
 		panel_1 = new JPanel();
 		panelJuego.add(panel_1, BorderLayout.CENTER);
+		panel_1.setBackground(Color.red);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		progressBar = new JProgressBar();
@@ -219,7 +179,7 @@ public class UI extends JFrame {
 	}
 	
 	public void penalizarTiempo() {
-		this.progressBar.setValue(this.progressBar.getValue() - 5);
+		this.progressBar.setValue(this.progressBar.getValue() - 30);
 		this.progressBar.setForeground(this.colorPenalizado);
 	}
 	
@@ -238,7 +198,20 @@ public class UI extends JFrame {
 	 * @return Icono escalado
 	 */
 	public ImageIcon createScaledIcon(ImageIcon Imagen, int height) {
-		return new ImageIcon(Imagen.getImage().getScaledInstance(height - 5, height - 5, Image.SCALE_SMOOTH));
+		return new ImageIcon(Imagen.getImage().getScaledInstance(height - 15, height - 15, Image.SCALE_SMOOTH));
+	}
+	
+	public void reiniciarVista() {
+		this.progressBar.setValue(100);
+		this.botonera.setVisible(true);
+
+		for (JButton[] i : botonera.getBotonera()) {
+			for (JButton boton : i) {
+				boton.setVisible(true);
+				boton.setIcon(null);
+				boton.setBackground(this.botonera.getCartaVelada());
+			}
+		}
 	}
 
 	public Botonera getBotonera() {
@@ -259,6 +232,18 @@ public class UI extends JFrame {
 
 	public Color getCartaVelada() {
 		return botonera.getCartaVelada();
+	}
+
+	public JPanel getPanel_1() {
+		return panel_1;
+	}
+
+	public Color getColorProgreso() {
+		return colorProgreso;
+	}
+
+	public Color getColorPenalizado() {
+		return colorPenalizado;
 	}
 	
 }

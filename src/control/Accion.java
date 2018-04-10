@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import modelo.Carta;
 import modelo.Coordenada;
+import vista.Botonera;
 
 public class Accion implements Jugable{
 
@@ -30,7 +31,8 @@ public class Accion implements Jugable{
 			
 			if(this.paraui.comprobarCompletado(this.paraui.getCartas())) {
 				this.paraui.getTimer().stop();
-				//TODO Cuando se ha completado el juego
+				this.paraui.getBotonera().setVisible(false);
+				this.paraui.getPanel_1().setBackground(this.paraui.getColorProgreso());
 			}
 
 		} else {
@@ -92,17 +94,8 @@ public class Accion implements Jugable{
 	}
 
 	public void reiniciar() {
-		this.paraui.getProgressBar().setValue(100);
 		this.paraui.getTimer().stop();
-
-		for (JButton[] i : this.paraui.getBotonera().getBotonera()) {
-			for (JButton boton : i) {
-				boton.setIcon(null);
-				boton.setVisible(true);
-				boton.setEnabled(true);
-				boton.setBackground(this.paraui.getCartaVelada());
-			}
-		}
+		this.paraui.reiniciarVista();
 	}
 
 	public ParaUI getParaui() {
