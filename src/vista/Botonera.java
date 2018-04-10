@@ -5,10 +5,12 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 public class Botonera extends JPanel {
 
 	private JButton[][] botonera;
+	private Color cartaVelada = new Color(202, 49, 49);
 
 	public Botonera(int dimension) {
 		super();
@@ -30,7 +32,7 @@ public class Botonera extends JPanel {
 	}
 	
 	private void establecerPropiedades(JButton boton) {
-		boton.setBackground(Color.WHITE);
+		boton.setBackground(this.cartaVelada);
 		boton.setFont(new Font("Sans Serif", Font.BOLD, 18));
 		boton.setFocusPainted(false);
 		boton.setBorder(null);
@@ -42,5 +44,13 @@ public class Botonera extends JPanel {
 
 	public JButton[][] getBotonera() {
 		return botonera;
+	}
+
+	public Color getCartaVelada() {
+		return cartaVelada;
+	}
+
+	public void setCartaVelada(Color cartaVelada) {
+		this.cartaVelada = cartaVelada;
 	}
 }

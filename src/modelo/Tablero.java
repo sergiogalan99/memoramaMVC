@@ -31,7 +31,6 @@ public class Tablero implements Marcable, Comprobable, Desvelable, Jugable {
 				&& !comprobarMarcable(this.cartas)) {
 			if (comprobarParejas(this.cartas)) {
 				desvelarMarcadas(this.cartas);
-				desmarcarCartas(this.cartas);
 			} else {
 				return false;
 			}
@@ -154,7 +153,7 @@ public class Tablero implements Marcable, Comprobable, Desvelable, Jugable {
 	 */
 	private void inicializarImagenesCartas() {
 		for (int i = 0; i < this.cantidadParejas; i++) {
-			this.imagenesCartas[i] = "/assets/" + (i + 1) + ".jpg";
+			this.imagenesCartas[i] = "/assets/" + (i + 1) + ".png";
 		}
 	}
 
