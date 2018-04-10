@@ -23,6 +23,7 @@ import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
 import javax.swing.ImageIcon;
 import javax.swing.JProgressBar;
+import javax.swing.JTextPane;
 
 public class UI extends JFrame {
 
@@ -48,6 +49,8 @@ public class UI extends JFrame {
 	private JPanel panel_4;
 	protected JProgressBar progressBar;
 	private JPanel panel_5;
+	private JLabel label;
+	private JLabel label_1;
 	
 	public UI() {
 		setPreferredSize(new Dimension(800, 800));
@@ -70,9 +73,49 @@ public class UI extends JFrame {
 		tituloJuego.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(tituloJuego, BorderLayout.NORTH);
 		
-		crearPanelPrincipal();
+		
+		 panelFinalPerdedor();
+	
+		
 	}
-
+	private void panelFinalPerdedor() {
+		
+		btnReiniciar = new JButton("Reiniciar");
+		contentPane.add(btnReiniciar, BorderLayout.SOUTH);
+		btnReiniciar.setForeground(Color.WHITE);
+		btnReiniciar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		btnReiniciar.setBackground(SystemColor.textHighlight);
+		btnReiniciar.setBorder(new EmptyBorder(5, 0, 5, 0));
+		btnReiniciar.setFocusPainted(false);
+		btnReiniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		label = new JLabel("");
+		label.setIcon(new ImageIcon(UI.class.getResource("/assets/GameOver.jpg")));
+		contentPane.add(label, BorderLayout.CENTER);
+		
+		
+		
+	}
+	
+	private void panelFinalGanador() {
+		btnReiniciar = new JButton("Reiniciar");
+		contentPane.add(btnReiniciar, BorderLayout.SOUTH);
+		btnReiniciar.setForeground(Color.WHITE);
+		btnReiniciar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		btnReiniciar.setBackground(SystemColor.textHighlight);
+		btnReiniciar.setBorder(new EmptyBorder(5, 0, 5, 0));
+		btnReiniciar.setFocusPainted(false);
+		btnReiniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		label_1 = new JLabel("");
+		label_1.setIcon(new ImageIcon(UI.class.getResource("/assets/ganar.jpg")));
+		contentPane.add(label_1, BorderLayout.CENTER);
+		
+		
+	}
+	
+	
+	
 	private void crearPanelPrincipal(){
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(Color.WHITE);
