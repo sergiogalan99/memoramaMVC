@@ -16,6 +16,8 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
@@ -30,14 +32,15 @@ public class UI extends JFrame {
 	private int tiempo;
 	private JPanel contentPane;
 	protected Botonera botonera;
-	protected JButton botonJugar;
-	protected JComboBox<String> comboBox;
 	protected JPanel panelPrincipal;
 	private JButton btnReiniciar;
 	protected JProgressBar progressBar;
 	private JPanel panel_1;
 	private JLabel mensajeFinal;
-	
+	protected JButton btn4;
+	protected JButton btn6;
+	protected JButton btn8;
+
 	public UI() {
 		setPreferredSize(new Dimension(800, 800));
 		setMinimumSize(new Dimension(700, 700));
@@ -49,7 +52,7 @@ public class UI extends JFrame {
 		contentPane.setBorder(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
+
 		JLabel tituloJuego = new JLabel("MEMORAMA");
 		tituloJuego.setBorder(new EmptyBorder(10, 10, 10, 10));
 		tituloJuego.setOpaque(true);
@@ -58,69 +61,88 @@ public class UI extends JFrame {
 		tituloJuego.setFont(new Font("Tahoma", Font.BOLD, 60));
 		tituloJuego.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(tituloJuego, BorderLayout.NORTH);
-		
+
 		crearPanelPrincipal();
-	
+
 	}
-	
-	private void crearPanelPrincipal(){
+
+	private void crearPanelPrincipal() {
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(new Color(255, 127, 80));
 		contentPane.add(panelPrincipal, BorderLayout.CENTER);
 		panelPrincipal.setLayout(new BorderLayout(0, 0));
-		
-		JLabel tituloTamano = new JLabel("ELIGE EL TAMA\u00D1O DEL CUADRANTE");
-		tituloTamano.setFont(new Font("Tahoma", Font.BOLD, 13));
-		tituloTamano.setBorder(new EmptyBorder(10, 0, 10, 0));
-		tituloTamano.setHorizontalAlignment(SwingConstants.CENTER);
-		panelPrincipal.add(tituloTamano, BorderLayout.NORTH);
-		
-		JPanel panel = new JPanel();
-		panel.setToolTipText("");
-		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
-		panel.setBackground(Color.WHITE);
-		panelPrincipal.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new BorderLayout(0, 0));
-		
-		comboBox = new JComboBox<String>();
-		comboBox.setBorder(new EmptyBorder(0, 20, 0, 20));
-		comboBox.setFont(new Font("Tahoma", Font.BOLD, 18));
-		comboBox.setMinimumSize(new Dimension(200, 20));
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"4", "6", "8"}));
-		panel.add(comboBox, BorderLayout.NORTH);
-		
+
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(SystemColor.textHighlight);
-		panel_2.setBorder(new LineBorder(Color.DARK_GRAY));
-		panel.add(panel_2, BorderLayout.SOUTH);
+		panelPrincipal.add(panel_2, BorderLayout.NORTH);
+		panel_2.setBorder(null);
 		panel_2.setLayout(new BorderLayout(0, 0));
-		
-		botonJugar = new JButton("Jugar");
-		panel_2.add(botonJugar);
-		botonJugar.setFont(new Font("Tahoma", Font.BOLD, 80));
-		botonJugar.setBorder(new EmptyBorder(10, 0, 10, 0));
-		botonJugar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		botonJugar.setFocusPainted(false);
-		
-		botonJugar.setMinimumSize(new Dimension(130, 70));
-		botonJugar.setForeground(new Color(255, 255, 255));
-		botonJugar.setOpaque(false);
-		botonJugar.setBackground(new Color(244, 164, 96));
+
+		JLabel tituloTamano = new JLabel("ELIGE EL TAMA\u00D1O DEL CUADRANTE");
+		tituloTamano.setOpaque(true);
+		panel_2.add(tituloTamano, BorderLayout.NORTH);
+		tituloTamano.setBackground(SystemColor.textHighlight);
+		tituloTamano.setForeground(Color.WHITE);
+		tituloTamano.setFont(new Font("Tahoma", Font.BOLD, 20));
+		tituloTamano.setBorder(new EmptyBorder(30, 0, 30, 0));
+		tituloTamano.setHorizontalAlignment(SwingConstants.CENTER);
+
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(Color.WHITE);
+		panel_3.setBorder(new EmptyBorder(10, 0, 10, 0));
+		panel_2.add(panel_3, BorderLayout.SOUTH);
+		panel_3.setLayout(new GridLayout(3, 1, 0, 5));
+
+		btn4 = new JButton("4");
+		btn4.setFocusPainted(false);
+		btn4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btn4.setForeground(Color.WHITE);
+		btn4.setBackground(SystemColor.textHighlight);
+		btn4.setFont(new Font("Arial Black", Font.BOLD, 40));
+		btn4.setBorder(new EmptyBorder(15, 0, 15, 0));
+		btn4.setName("4");
+		panel_3.add(btn4);
+
+		btn6 = new JButton("6");
+		btn6.setFocusPainted(false);
+		btn6.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btn6.setForeground(Color.WHITE);
+		btn6.setBackground(new Color(0, 102, 153));
+		btn6.setFont(new Font("Arial Black", Font.BOLD, 40));
+		btn6.setBorder(new EmptyBorder(15, 0, 15, 0));
+		btn6.setName("6");
+		panel_3.add(btn6);
+
+		btn8 = new JButton("8");
+		btn8.setFocusPainted(false);
+		btn8.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btn8.setForeground(Color.WHITE);
+		btn8.setBackground(new Color(0, 102, 102));
+		btn8.setFont(new Font("Arial Black", Font.BOLD, 40));
+		btn8.setBorder(new EmptyBorder(15, 0, 15, 0));
+		btn8.setName("8");
+		panel_3.add(btn8);
+
+		JLabel lblNewLabel = new JLabel("Chambea!");
+		lblNewLabel.setBorder(new EmptyBorder(5, 0, 5, 0));
+		lblNewLabel.setForeground(new Color(30, 30, 30));
+		lblNewLabel.setFont(new Font("Times New Roman", Font.ITALIC, 12));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panelPrincipal.add(lblNewLabel, BorderLayout.SOUTH);
 	}
 
-	public void crearPanelJuego(String dimension){
+	public void crearPanelJuego(String dimension) {
 		JPanel panelJuego = new JPanel();
 		panelJuego.setBounds(10, 11, 344, 220);
 		contentPane.add(panelJuego);
 		contentPane.add(panelJuego);
 		panelJuego.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panel = new JPanel();
 		panelJuego.add(panel, BorderLayout.SOUTH);
 		panel.setBorder(new LineBorder(Color.DARK_GRAY));
 		panel.setForeground(Color.WHITE);
 		panel.setLayout(new BorderLayout(0, 0));
-		
+
 		btnReiniciar = new JButton("Reiniciar");
 		panel.add(btnReiniciar);
 		btnReiniciar.setForeground(Color.WHITE);
@@ -129,12 +151,12 @@ public class UI extends JFrame {
 		btnReiniciar.setBorder(new EmptyBorder(5, 0, 5, 0));
 		btnReiniciar.setFocusPainted(false);
 		btnReiniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
+
 		panel_1 = new JPanel();
 		panelJuego.add(panel_1, BorderLayout.CENTER);
 		panel_1.setBackground(Color.red);
 		panel_1.setLayout(new BorderLayout(0, 0));
-		
+
 		progressBar = new JProgressBar();
 		progressBar.setBorder(null);
 		panel_1.add(progressBar, BorderLayout.NORTH);
@@ -144,8 +166,8 @@ public class UI extends JFrame {
 		progressBar.setMaximum(100);
 		progressBar.setMinimum(0);
 		progressBar.setForeground(this.colorProgreso);
-		
-		botonera=new Botonera(Integer.parseInt(dimension));
+
+		botonera = new Botonera(Integer.parseInt(dimension));
 		botonera.setBorder(new EmptyBorder(20, 20, 20, 20));
 		panel_1.add(botonera);
 		GridLayout gl_botonera = new GridLayout(Integer.parseInt(dimension), Integer.parseInt(dimension));
@@ -153,12 +175,12 @@ public class UI extends JFrame {
 		gl_botonera.setHgap(5);
 		botonera.setBackground(new Color(238, 235, 233));
 		botonera.setLayout(gl_botonera);
-		
+
 	}
 
-	public int crearJuego() {
-		this.dimension = (String) comboBox.getSelectedItem();
-		this.tiempo = (int) ((Integer.parseInt(this.dimension) * 0.5 ) * 1000);
+	public int crearJuego(String dimension) {
+		this.dimension = dimension;
+		this.tiempo = (int) ((Integer.parseInt(this.dimension) * 0.5) * 1000);
 		remove(panelPrincipal);
 		crearPanelJuego(this.dimension);
 		return Integer.parseInt(this.dimension);
@@ -169,43 +191,29 @@ public class UI extends JFrame {
 			for (JButton boton : i) {
 				boton.addActionListener(listenerCasilla);
 			}
-			
+
 		}
 
 		btnReiniciar.addActionListener(listenerReiniciar);
 	}
-	
+
 	public void despenalizarTiempo() {
 		this.progressBar.setValue(this.progressBar.getValue() + 10);
 	}
-	
+
 	public void penalizarTiempo() {
-		this.progressBar.setValue(this.progressBar.getValue() - 30);
+		this.progressBar.setValue(this.progressBar.getValue() - 5);
 		this.progressBar.setForeground(this.colorPenalizado);
 	}
-	
+
 	public void disminuirTiempo() {
 		this.progressBar.setValue(this.progressBar.getValue() - 1);
 		this.progressBar.setForeground(this.colorProgreso);
 	}
-	
-	/**
-	 * Escala un icono en base a una medida
-	 * 
-	 * @param Imagen
-	 *            Icono a escalar
-	 * @param height
-	 *            Medida con la que escalar
-	 * @return Icono escalado
-	 */
-	public ImageIcon createScaledIcon(ImageIcon Imagen, int height) {
-		return new ImageIcon(Imagen.getImage().getScaledInstance(height - 15, height - 15, Image.SCALE_SMOOTH));
-	}
-	
+
 	public void reiniciarVista() {
 		this.progressBar.setValue(100);
 		this.botonera.setVisible(true);
-		eliminarMensajeFinal();
 		this.panel_1.add(this.botonera, BorderLayout.CENTER);
 
 		for (JButton[] i : botonera.getBotonera()) {
@@ -215,23 +223,6 @@ public class UI extends JFrame {
 				boton.setBackground(this.botonera.getCartaVelada());
 			}
 		}
-	}
-	
-	public void generarMensajeFinal(String mensaje, boolean victoria) {
-		this.mensajeFinal = new JLabel(mensaje);
-		this.panel_1.add(mensajeFinal, BorderLayout.CENTER);
-		mensajeFinal.setFont(new Font("Arial", Font.BOLD, 70));
-		mensajeFinal.setHorizontalAlignment(SwingConstants.CENTER);
-		if(victoria) {
-			mensajeFinal.setForeground(Color.BLUE);
-		} else {
-			mensajeFinal.setForeground(Color.YELLOW);
-		}
-	}
-	
-	public void eliminarMensajeFinal() {
-		this.panel_1.remove(this.mensajeFinal);
-		this.mensajeFinal = null;
 	}
 
 	public Botonera getBotonera() {
@@ -265,5 +256,5 @@ public class UI extends JFrame {
 	public Color getColorPenalizado() {
 		return colorPenalizado;
 	}
-	
+
 }

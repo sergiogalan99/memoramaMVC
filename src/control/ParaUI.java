@@ -1,7 +1,11 @@
  package control;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.Timer;
 import modelo.Carta;
 import modelo.Coordenada;
@@ -22,14 +26,45 @@ public class ParaUI extends UI {
 	public ParaUI() {
 		timer.setRepeats(true);
 
-		botonJugar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				dimension = crearJuego();
+		btn4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dimension = crearJuego((((JButton) e.getSource()).getName()));
 				setListeners(listenerCasilla, listenerReiniciar);
 				control = new Tablero(dimension);
 				timer.setDelay(getTiempo());
 			}
 		});
+		
+		btn6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dimension = crearJuego((((JButton) e.getSource()).getName()));
+				setListeners(listenerCasilla, listenerReiniciar);
+				control = new Tablero(dimension);
+				timer.setDelay(getTiempo());
+			}
+		});
+		
+		btn8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dimension = crearJuego((((JButton) e.getSource()).getName()));
+				setListeners(listenerCasilla, listenerReiniciar);
+				control = new Tablero(dimension);
+				timer.setDelay(getTiempo());
+			}
+		});
+	}
+	
+	/**
+	 * Escala un icono en base a una medida
+	 * 
+	 * @param Imagen
+	 *            Icono a escalar
+	 * @param height
+	 *            Medida con la que escalar
+	 * @return Icono escalado
+	 */
+	public ImageIcon createScaledIcon(ImageIcon Imagen, int height) {
+		return new ImageIcon(Imagen.getImage().getScaledInstance(height - 15, height - 15, Image.SCALE_SMOOTH));
 	}
 
 	public int getDimension() {
@@ -86,10 +121,6 @@ public class ParaUI extends UI {
 
 	public void desvelar(Carta casilla) {
 		control.desvelar(casilla);
-	}
-
-	public boolean equals(Object obj) {
-		return control.equals(obj);
 	}
 
 	public boolean realizarJugada(Coordenada coordenada) {

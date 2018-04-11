@@ -33,7 +33,6 @@ public class Accion implements Jugable{
 				this.paraui.getTimer().stop();
 				this.paraui.getBotonera().setVisible(false);
 				this.paraui.getPanel_1().setBackground(this.paraui.getColorProgreso());
-				this.paraui.generarMensajeFinal("Victoria", true);
 			}
 
 		} else {
