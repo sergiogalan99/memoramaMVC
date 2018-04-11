@@ -5,7 +5,7 @@ import modelo.Carta;
 public interface Comprobable {
 	
 	/**
-	 * Comprueba si los valores de las cartas son iguales
+	 * Comprueba si los valores de las cartas marcadas son iguales
 	 * 
 	 * @param cartaUno
 	 * @param cartaDos

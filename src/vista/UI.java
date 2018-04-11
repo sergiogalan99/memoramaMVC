@@ -36,6 +36,7 @@ public class UI extends JFrame {
 	private JButton btnReiniciar;
 	protected JProgressBar progressBar;
 	private JPanel panel_1;
+	private JLabel mensajeFinal;
 	
 	public UI() {
 		setPreferredSize(new Dimension(800, 800));
@@ -204,6 +205,8 @@ public class UI extends JFrame {
 	public void reiniciarVista() {
 		this.progressBar.setValue(100);
 		this.botonera.setVisible(true);
+		eliminarMensajeFinal();
+		this.panel_1.add(this.botonera, BorderLayout.CENTER);
 
 		for (JButton[] i : botonera.getBotonera()) {
 			for (JButton boton : i) {
@@ -212,6 +215,23 @@ public class UI extends JFrame {
 				boton.setBackground(this.botonera.getCartaVelada());
 			}
 		}
+	}
+	
+	public void generarMensajeFinal(String mensaje, boolean victoria) {
+		this.mensajeFinal = new JLabel(mensaje);
+		this.panel_1.add(mensajeFinal, BorderLayout.CENTER);
+		mensajeFinal.setFont(new Font("Arial", Font.BOLD, 70));
+		mensajeFinal.setHorizontalAlignment(SwingConstants.CENTER);
+		if(victoria) {
+			mensajeFinal.setForeground(Color.BLUE);
+		} else {
+			mensajeFinal.setForeground(Color.YELLOW);
+		}
+	}
+	
+	public void eliminarMensajeFinal() {
+		this.panel_1.remove(this.mensajeFinal);
+		this.mensajeFinal = null;
 	}
 
 	public Botonera getBotonera() {
