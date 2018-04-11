@@ -34,8 +34,6 @@ public class ActionCasilla implements ActionListener {
 		if(carta.isVelada() && this.paraui.getControl().comprobarMarcable(this.paraui.getControl().getCartas())) {
 			if(!paraui.getAcciones().realizarJugada(this.coordenada)) {
 				worker.execute();
-			} else {
-				
 			}
 		}
 	}

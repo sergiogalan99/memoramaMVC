@@ -19,6 +19,7 @@ public class ActionProgreso implements ActionListener {
 		if(this.paraUI.getControl().comprobarDerrota(this.paraUI.getProgressBar().getValue())) {
 			this.paraUI.getBotonera().setVisible(false);
 			this.paraUI.getPanel_1().setBackground(this.paraUI.getBotonera().getCartaVelada());
+			this.paraUI.generarMensajeFinal("Derrota", false);
 		}
 	}
 
