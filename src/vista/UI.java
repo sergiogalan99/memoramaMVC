@@ -163,7 +163,7 @@ public class UI extends JFrame {
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		progressBar = new JProgressBar();
-		progressBar.setBorder(null);
+		progressBar.setBorder(new LineBorder(Color.DARK_GRAY));
 		panel_1.add(progressBar, BorderLayout.NORTH);
 		progressBar.setBorderPainted(false);
 		progressBar.setMinimumSize(new Dimension(10, 50));
