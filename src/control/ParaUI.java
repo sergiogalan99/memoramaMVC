@@ -21,35 +21,30 @@ public class ParaUI extends UI {
 	private ActionCasilla listenerCasilla= new ActionCasilla(this);
 	private ActionReiniciar listenerReiniciar = new ActionReiniciar(this);
 	private ActionProgreso listenerProgreso = new ActionProgreso(this);
+	private ActionRedimension listenerRedimension = new ActionRedimension(this);
 	private Timer timer = new Timer(1000, this.listenerProgreso);
 	
 	public ParaUI() {
 		timer.setRepeats(true);
-
+		establecerListenersDificultad();
+	}
+	
+	public void establecerListenersDificultad() {
 		btn4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dimension = crearJuego((((JButton) e.getSource()).getName()));
-				setListeners(listenerCasilla, listenerReiniciar);
-				control = new Tablero(dimension);
-				timer.setDelay(getTiempo());
+				inicializarPartida(e);
 			}
 		});
 		
 		btn6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dimension = crearJuego((((JButton) e.getSource()).getName()));
-				setListeners(listenerCasilla, listenerReiniciar);
-				control = new Tablero(dimension);
-				timer.setDelay(getTiempo());
+				inicializarPartida(e);
 			}
 		});
 		
 		btn8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dimension = crearJuego((((JButton) e.getSource()).getName()));
-				setListeners(listenerCasilla, listenerReiniciar);
-				control = new Tablero(dimension);
-				timer.setDelay(getTiempo());
+				inicializarPartida(e);
 			}
 		});
 	}
@@ -65,6 +60,13 @@ public class ParaUI extends UI {
 	 */
 	public ImageIcon createScaledIcon(ImageIcon Imagen, int height) {
 		return new ImageIcon(Imagen.getImage().getScaledInstance(height - 15, height - 15, Image.SCALE_SMOOTH));
+	}
+	
+	private void inicializarPartida(ActionEvent e) {
+		dimension = crearJuego((((JButton) e.getSource()).getName()));
+		setListeners(listenerCasilla, listenerReiniciar, listenerRedimension);
+		control = new Tablero(dimension);
+		timer.setDelay(getTiempo());
 	}
 
 	public int getDimension() {
