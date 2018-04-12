@@ -68,7 +68,7 @@ public class UI extends JFrame {
 
 	private void crearPanelPrincipal() {
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(new Color(255, 127, 80));
+		panelPrincipal.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(panelPrincipal, BorderLayout.CENTER);
 		panelPrincipal.setLayout(new BorderLayout(0, 0));
 
@@ -77,11 +77,11 @@ public class UI extends JFrame {
 		panel_2.setBorder(null);
 		panel_2.setLayout(new BorderLayout(0, 0));
 
-		JLabel tituloTamano = new JLabel("ELIGE EL TAMA\u00D1O DEL CUADRANTE");
+		JLabel tituloTamano = new JLabel("ELIGE LA DIFICULTAD");
 		tituloTamano.setOpaque(true);
 		panel_2.add(tituloTamano, BorderLayout.NORTH);
-		tituloTamano.setBackground(SystemColor.textHighlight);
-		tituloTamano.setForeground(Color.WHITE);
+		tituloTamano.setBackground(Color.LIGHT_GRAY);
+		tituloTamano.setForeground(Color.BLACK);
 		tituloTamano.setFont(new Font("Tahoma", Font.BOLD, 20));
 		tituloTamano.setBorder(new EmptyBorder(30, 0, 30, 0));
 		tituloTamano.setHorizontalAlignment(SwingConstants.CENTER);
@@ -92,7 +92,7 @@ public class UI extends JFrame {
 		panel_2.add(panel_3, BorderLayout.SOUTH);
 		panel_3.setLayout(new GridLayout(3, 1, 0, 5));
 
-		btn4 = new JButton("4");
+		btn4 = new JButton("F\u00C1CIL");
 		btn4.setFocusPainted(false);
 		btn4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn4.setForeground(Color.WHITE);
@@ -102,7 +102,7 @@ public class UI extends JFrame {
 		btn4.setName("4");
 		panel_3.add(btn4);
 
-		btn6 = new JButton("6");
+		btn6 = new JButton("MEDIO");
 		btn6.setFocusPainted(false);
 		btn6.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn6.setForeground(Color.WHITE);
@@ -112,7 +112,7 @@ public class UI extends JFrame {
 		btn6.setName("6");
 		panel_3.add(btn6);
 
-		btn8 = new JButton("8");
+		btn8 = new JButton("DIF\u00CDCIL");
 		btn8.setFocusPainted(false);
 		btn8.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn8.setForeground(Color.WHITE);
@@ -122,7 +122,7 @@ public class UI extends JFrame {
 		btn8.setName("8");
 		panel_3.add(btn8);
 
-		JLabel lblNewLabel = new JLabel("Chambea!");
+		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBorder(new EmptyBorder(5, 0, 5, 0));
 		lblNewLabel.setForeground(new Color(30, 30, 30));
 		lblNewLabel.setFont(new Font("Times New Roman", Font.ITALIC, 12));
