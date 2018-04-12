@@ -96,11 +96,7 @@ public class UI extends JFrame {
 		panel_2.add(panel_3, BorderLayout.SOUTH);
 		panel_3.setLayout(new GridLayout(3, 1, 0, 5));
 
-<<<<<<< HEAD
-		btn4 = new JButton("F\u00C1CIL");
-=======
 		btn4 = new JButton("F\u00E1cil");
->>>>>>> refs/remotes/origin/master
 		btn4.setFocusPainted(false);
 		btn4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn4.setForeground(Color.WHITE);
@@ -110,11 +106,8 @@ public class UI extends JFrame {
 		btn4.setName("4");
 		panel_3.add(btn4);
 
-<<<<<<< HEAD
-		btn6 = new JButton("MEDIO");
-=======
 		btn6 = new JButton("Medio");
->>>>>>> refs/remotes/origin/master
+
 		btn6.setFocusPainted(false);
 		btn6.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn6.setForeground(Color.WHITE);
@@ -124,11 +117,7 @@ public class UI extends JFrame {
 		btn6.setName("6");
 		panel_3.add(btn6);
 
-<<<<<<< HEAD
-		btn8 = new JButton("DIF\u00CDCIL");
-=======
 		btn8 = new JButton("Dif\u00EDcil");
->>>>>>> refs/remotes/origin/master
 		btn8.setFocusPainted(false);
 		btn8.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn8.setForeground(Color.WHITE);
@@ -138,11 +127,7 @@ public class UI extends JFrame {
 		btn8.setName("8");
 		panel_3.add(btn8);
 
-<<<<<<< HEAD
-		JLabel lblNewLabel = new JLabel("");
-=======
-		JLabel lblNewLabel = new JLabel("Los colores no son feos, es a ti que no te gustan, as\u00ED pues, \u00A1chambea!");
->>>>>>> refs/remotes/origin/master
+		JLabel lblNewLabel = new JLabel("chambea!");
 		lblNewLabel.setBorder(new EmptyBorder(5, 0, 5, 0));
 		lblNewLabel.setForeground(new Color(30, 30, 30));
 		lblNewLabel.setFont(new Font("Times New Roman", Font.ITALIC, 12));
