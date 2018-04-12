@@ -95,7 +95,9 @@ public class Accion implements Jugable{
 
 	public void reiniciar() {
 		this.paraui.getTimer().stop();
-		this.paraui.reiniciarVista();
+		this.paraui.getContentPane().remove(this.paraui.getPanelJuego());
+		this.paraui.crearPanelPrincipal();
+		this.paraui.establecerListenersDificultad();
 	}
 
 	public ParaUI getParaui() {

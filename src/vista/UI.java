@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import control.ActionCasilla;
+import control.ActionRedimension;
 import control.ActionReiniciar;
 import javax.swing.JButton;
 import java.awt.GridLayout;
@@ -23,6 +24,8 @@ import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
 import javax.swing.ImageIcon;
 import javax.swing.JProgressBar;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class UI extends JFrame {
 
@@ -33,6 +36,7 @@ public class UI extends JFrame {
 	private JPanel contentPane;
 	protected Botonera botonera;
 	protected JPanel panelPrincipal;
+	protected JPanel panelJuego;
 	private JButton btnReiniciar;
 	protected JProgressBar progressBar;
 	private JPanel panel_1;
@@ -66,7 +70,7 @@ public class UI extends JFrame {
 
 	}
 
-	private void crearPanelPrincipal() {
+	public void crearPanelPrincipal() {
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(new Color(255, 127, 80));
 		contentPane.add(panelPrincipal, BorderLayout.CENTER);
@@ -77,7 +81,7 @@ public class UI extends JFrame {
 		panel_2.setBorder(null);
 		panel_2.setLayout(new BorderLayout(0, 0));
 
-		JLabel tituloTamano = new JLabel("ELIGE EL TAMA\u00D1O DEL CUADRANTE");
+		JLabel tituloTamano = new JLabel("ELIGE LA DIFICULTAD");
 		tituloTamano.setOpaque(true);
 		panel_2.add(tituloTamano, BorderLayout.NORTH);
 		tituloTamano.setBackground(SystemColor.textHighlight);
@@ -92,7 +96,7 @@ public class UI extends JFrame {
 		panel_2.add(panel_3, BorderLayout.SOUTH);
 		panel_3.setLayout(new GridLayout(3, 1, 0, 5));
 
-		btn4 = new JButton("4");
+		btn4 = new JButton("F\u00E1cil");
 		btn4.setFocusPainted(false);
 		btn4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn4.setForeground(Color.WHITE);
@@ -102,7 +106,7 @@ public class UI extends JFrame {
 		btn4.setName("4");
 		panel_3.add(btn4);
 
-		btn6 = new JButton("6");
+		btn6 = new JButton("Medio");
 		btn6.setFocusPainted(false);
 		btn6.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn6.setForeground(Color.WHITE);
@@ -112,7 +116,7 @@ public class UI extends JFrame {
 		btn6.setName("6");
 		panel_3.add(btn6);
 
-		btn8 = new JButton("8");
+		btn8 = new JButton("Dif\u00EDcil");
 		btn8.setFocusPainted(false);
 		btn8.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn8.setForeground(Color.WHITE);
@@ -122,7 +126,7 @@ public class UI extends JFrame {
 		btn8.setName("8");
 		panel_3.add(btn8);
 
-		JLabel lblNewLabel = new JLabel("Chambea!");
+		JLabel lblNewLabel = new JLabel("Los colores no son feos, es a ti que no te gustan, as\u00ED pues, \u00A1chambea!");
 		lblNewLabel.setBorder(new EmptyBorder(5, 0, 5, 0));
 		lblNewLabel.setForeground(new Color(30, 30, 30));
 		lblNewLabel.setFont(new Font("Times New Roman", Font.ITALIC, 12));
@@ -131,7 +135,7 @@ public class UI extends JFrame {
 	}
 
 	public void crearPanelJuego(String dimension) {
-		JPanel panelJuego = new JPanel();
+		panelJuego = new JPanel();
 		panelJuego.setBounds(10, 11, 344, 220);
 		contentPane.add(panelJuego);
 		contentPane.add(panelJuego);
@@ -186,7 +190,7 @@ public class UI extends JFrame {
 		return Integer.parseInt(this.dimension);
 	}
 
-	public void setListeners(ActionCasilla listenerCasilla, ActionReiniciar listenerReiniciar) {
+	public void setListeners(ActionCasilla listenerCasilla, ActionReiniciar listenerReiniciar, ActionRedimension listenerRedimension) {
 		for (JButton[] i : this.botonera.getBotonera()) {
 			for (JButton boton : i) {
 				boton.addActionListener(listenerCasilla);
@@ -195,6 +199,7 @@ public class UI extends JFrame {
 		}
 
 		btnReiniciar.addActionListener(listenerReiniciar);
+		addComponentListener(listenerRedimension);
 	}
 
 	public void despenalizarTiempo() {
@@ -209,20 +214,6 @@ public class UI extends JFrame {
 	public void disminuirTiempo() {
 		this.progressBar.setValue(this.progressBar.getValue() - 1);
 		this.progressBar.setForeground(this.colorProgreso);
-	}
-
-	public void reiniciarVista() {
-		this.progressBar.setValue(100);
-		this.botonera.setVisible(true);
-		this.panel_1.add(this.botonera, BorderLayout.CENTER);
-
-		for (JButton[] i : botonera.getBotonera()) {
-			for (JButton boton : i) {
-				boton.setVisible(true);
-				boton.setIcon(null);
-				boton.setBackground(this.botonera.getCartaVelada());
-			}
-		}
 	}
 
 	public Botonera getBotonera() {
@@ -255,6 +246,14 @@ public class UI extends JFrame {
 
 	public Color getColorPenalizado() {
 		return colorPenalizado;
+	}
+
+	public JPanel getContentPane() {
+		return contentPane;
+	}
+
+	public JPanel getPanelJuego() {
+		return panelJuego;
 	}
 
 }
